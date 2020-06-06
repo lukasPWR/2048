@@ -10,15 +10,18 @@
 #include <ctime>
 #include <cstdlib>
 #include <iomanip>
+#include <cmath>
+#include<cstdio>
+#include<unistd.h>
 using namespace std;
-
+typedef unsigned int uint;
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 
 
 struct Tile
         {
-    int value ;
+    uint value ;
     bool isBlocked;
         };
 
@@ -29,7 +32,7 @@ class BoardTile {
     bool isDone;
     bool isMoved;
 
-    int score;
+    uint score;
     int cols;
     int rows;
 
@@ -52,18 +55,16 @@ public:
     int getBoardWidth() const { return cols; }
     char getFieldInfo(int x, int y) const;
     int getValue(int x, int y);
-
-
     void play_again();
-    bool checkAdd(int x, int y, int v) ;
+    bool checkAdd(int x, int y, uint v) ;
     bool canMove() ;
     void addTile();
     void moveHorizontal(int x, int y, int d);
     void moveVertical(int x, int y, int d);
     void move(Direction d);
-//metody do konsolowej wersji(testy, bledy)
 
-    void entryKey();
+
+
 
 
 

@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    srand( static_cast<int>( time( NULL ) ) );
+    srand( static_cast<uint>( time( NULL ) ) );
 
     BoardTile bt(4,4);
     BoardView bv(bt);
@@ -17,7 +17,7 @@ int main() {
 
 
 
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "My window");
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "2048");
 
 
     while (window.isOpen())

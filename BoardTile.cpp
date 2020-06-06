@@ -15,7 +15,7 @@ BoardTile::BoardTile(int cols, int rows): cols(cols), rows(rows)
 
 
     setBoard(cols,rows);
-    addTile();
+
 }
 
 
@@ -38,7 +38,7 @@ void BoardTile::setBoard(int cols, int rows)
 
         }
     }
-
+    addTile();
 
 }
 
@@ -121,9 +121,9 @@ void BoardTile::play_again()
     setBoard(cols,rows);
     addTile();
 }
-bool BoardTile::checkAdd(int x, int y, int v)
+bool BoardTile::checkAdd(int x, int y, uint v)
 {
-    if( x < 0 || x >3 || y < 0 || y> 3)
+    if( x < 0 || x >4 || y < 0 || y> 4)
         return false;
     return board.at(y).at(x).value == v;
 
@@ -131,6 +131,10 @@ bool BoardTile::checkAdd(int x, int y, int v)
 }
 bool BoardTile::canMove()
 {
+    for( int y = 0; y < 4; y++ )
+        for( int x = 0; x < 4; x++ )
+            if( !board.at(x).at(y).value ) return true;
+
     for( int i = 0; i < cols;i++)
     {
         for(int j = 0; j < rows; j++)
@@ -143,14 +147,15 @@ bool BoardTile::canMove()
                 return true;
             if(checkAdd(i,j-1,board.at(i).at(j).value))
                 return true;
+
         }
     }
     return false;
 }
 void BoardTile::addTile()
 {
-    int a= 0;
-    int b= 0;
+    uint a= 0;
+    uint b= 0;
             if(!board.at(a).at(b).value)
             {
 
@@ -167,77 +172,49 @@ void BoardTile::addTile()
             isDone = true;
 }
 
-void BoardTile::entryKey()
-{
-    isMoved = false;
-    char c;
-    cout << "(W)Up (S)Down (A)Left (D)Right "; cin >> c; c &= 0x5F;
-    switch(c)
-    {
-        case 'W': move( UP );break;
-        case 'A': move( LEFT ); break;
-        case 'S': move( DOWN ); break;
-        case 'D': move( RIGHT );
-    }
-    for( int y = 0; y < cols; y++ )
-        for( int x = 0; x < rows; x++ )
-            board.at(y).at(x).isBlocked = false;
-}
+
 
 void BoardTile::moveVertical(int x, int y, int d)
 {
-    if( board.at(x).at(y+d).value && board.at(x).at(y+d).value == board.at(x).at(y).value && !board.at(x).at(y).isBlocked && !board.at(x).at(y).isBlocked  )
+    if(board[x][y + d].value && board[x][y + d].value == board[x][y].value && !board[x][y].isBlocked && !board[x][y + d].isBlocked  )
     {
-        board.at(x).at(y).value = 0;
-        board.at(x).at(y+d).value *= 2;
-        score += board.at(x).at(y+d).value;
-        board.at(x).at(y+d).isBlocked = true;
+        board[x][y].value = 0;
+        board[x][y + d].value *= 2;
+        score += board[x][y + d].value;
+        board[x][y + d].isBlocked = true;
         isMoved = true;
 
     }
-    else if( board.at(x).at(y+d).value && board.at(x).at(y).value )
+    else if( !board[x][y + d].value && board[x][y].value )
     {
-        board.at(x).at(y+d).value = board.at(x).at(y).value;
-        board.at(x).at(y).value = 0;
+        board[x][y + d].value = board[x][y].value;
+        board[x][y].value = 0;
         isMoved = true;
     }
-    if( d > 0 )
-    {
-        if( y + d < 3 )
-            moveVertical( x, y + d,  1 );
-    }
-    else {
-        if( y + d > 0 )
-            moveVertical( x, y + d, -1 );
-    }
+    if( d > 0 ) { if( y + d < 3 ) moveVertical( x, y + d,  1 ); }
+    else        { if( y + d > 0 ) moveVertical( x, y + d, -1 ); }
+
 
 }
 void  BoardTile::moveHorizontal(int x, int y, int d)
 {
-    if( board.at(x+d).at(y).value && board.at(x+d).at(y).value == board.at(x).at(y).value&& !board.at(x).at(y).isBlocked && !board.at(x+d).at(y).isBlocked  )
+    if( board[x + d][y].value && board[x + d][y].value == board[x][y].value && !board[x][y].isBlocked && !board[x + d][y].isBlocked )
     {
-        board.at(x).at(y).value = 0;
-        board.at(x+d).at(y).value*= 2;
-        score += board.at(x+d).at(y).value;
-        board.at(x+d).at(y).isBlocked = true;
+        board[x][y].value = 0;
+        board[x + d][y].value *= 2;
+        score += board[x + d][y].value;
+        board[x + d][y].isBlocked = true;
         isMoved = true;
     }
-    else if( !board.at(x+d).at(y).value && board.at(x).at(y).value )
+    else if( !board[x + d][y].value && board[x][y].value )
     {
-        board.at(x+d).at(y).value = board.at(x).at(y).value;
-        board.at(x).at(y).value = 0;
+        board[x + d][y].value = board[x][y].value;
+        board[x][y].value = 0;
         isMoved = true;
     }
-    if( d > 0 )
-    {
-        if( x + d < 3 )
-            moveHorizontal( x + d, y,  1 );
-    }
-    else
-    {
-        if( x + d > 0 )
-            moveHorizontal( x + d, y, -1 );
-    }
+    if( d > 0 ) { if( x + d < 3 ) moveHorizontal( x + d, y,  1 ); }
+    else        { if( x + d > 0 ) moveHorizontal( x + d, y, -1 ); }
+
 }
 void BoardTile::move(Direction d)
 {
@@ -248,10 +225,7 @@ void BoardTile::move(Direction d)
             {
                 int y = 1;
                 while( y < 4 )
-                {
-                    if( board.at(x).at(y).value )
-                        moveVertical( x, y, -1 ); y++;
-                }
+                { if( board[x][y].value ) moveVertical( x, y, -1 ); y++;}
             }
             break;
         case DOWN:
@@ -259,9 +233,7 @@ void BoardTile::move(Direction d)
             {
                 int y = 2;
                 while( y >= 0 )
-                {
-                    if( board.at(x).at(y).value )
-                        moveVertical( x, y, 1 ); y--;}
+                { if( board[x][y].value ) moveVertical( x, y, 1 ); y--;}
             }
             break;
         case LEFT:
@@ -269,9 +241,7 @@ void BoardTile::move(Direction d)
             {
                 int x = 1;
                 while( x < 4 )
-                {
-                    if( board.at(x).at(y).value )
-                        moveHorizontal( x, y, -1 ); x++;}
+                { if( board[x][y].value ) moveHorizontal( x, y, -1 ); x++;}
             }
             break;
         case RIGHT:
@@ -279,10 +249,7 @@ void BoardTile::move(Direction d)
             {
                 int x = 2;
                 while( x >= 0 )
-                {
-                    if( board.at(x).at(y).value )
-                        moveHorizontal( x, y, 1 ); x--;
-                }
+                { if( board[x][y].value ) moveHorizontal( x, y, 1 ); x--;}
             }
     }
 }

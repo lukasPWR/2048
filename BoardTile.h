@@ -15,6 +15,7 @@ using namespace std;
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 
+
 struct Tile
         {
     int value ;
@@ -37,15 +38,23 @@ class BoardTile {
     Direction direction;
 
 
+
 public:
     BoardTile(int cols, int rows);
 
     void setBoard( int cols, int rows);
     void debug_display() const;
     bool getIsMoved() {return isMoved;}
+    bool getIsDone() {return isDone;}
+    bool getIsWin() {return isWin;}
+    int getScore() {return score;};
     int getBoardHeight() const { return rows; }
     int getBoardWidth() const { return cols; }
     char getFieldInfo(int x, int y) const;
+    int getValue(int x, int y);
+
+
+    void play_again();
     bool checkAdd(int x, int y, int v) ;
     bool canMove() ;
     void addTile();

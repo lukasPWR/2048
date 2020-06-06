@@ -12,6 +12,8 @@ BoardTile::BoardTile(int cols, int rows): cols(cols), rows(rows)
     isMoved = true;
     score = 0;
 
+
+
     setBoard(cols,rows);
     addTile();
 }
@@ -23,10 +25,10 @@ void BoardTile::setBoard(int cols, int rows)
     cols =4;
     rows = 4;
 
-    board.resize(5);
+    board.resize(4);
     for(int i=0; i<board.size();i++)
     {
-        board.at(i).resize(5);
+        board.at(i).resize(4);
     }
 
     for(int i = 0; i < cols; ++i) {
@@ -72,8 +74,52 @@ char BoardTile::getFieldInfo(int x, int y) const
     {
         return '8';
     }
+    if(board.at(y).at(x).value == 16)
+    {
+        return '16';
+    }
+    if(board.at(y).at(x).value == 32)
+    {
+        return '32';
+    }
+    if(board.at(y).at(x).value == 64)
+    {
+        return '64';
+    }
+    if(board.at(y).at(x).value == 128)
+    {
+        return '128';
+    }
+    if(board.at(y).at(x).value == 256)
+    {
+        return '256';
+    }
+    if(board.at(y).at(x).value == 512)
+    {
+        return '512';
+    }
+    if(board.at(y).at(x).value == 1024)
+    {
+        return '1024';
+    }
+    if(board.at(y).at(x).value == 2048)
+    {
+        return '2048';
+    }
 
 
+}
+
+int BoardTile::getValue(int x, int y)
+{
+    return board.at(y).at(x).value;
+}
+
+void BoardTile::play_again()
+{
+    board.clear();
+    setBoard(cols,rows);
+    addTile();
 }
 bool BoardTile::checkAdd(int x, int y, int v)
 {
@@ -147,6 +193,7 @@ void BoardTile::moveVertical(int x, int y, int d)
         score += board.at(x).at(y+d).value;
         board.at(x).at(y+d).isBlocked = true;
         isMoved = true;
+
     }
     else if( board.at(x).at(y+d).value && board.at(x).at(y).value )
     {

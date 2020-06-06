@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BoardTile.h"
 #include "BoardView.h"
+#include "BoardTileController.h"
 #include "time.h"
 #include <SFML/Graphics.hpp>
 
@@ -9,19 +10,13 @@ int main() {
 
     BoardTile bt(4,4);
     BoardView bv(bt);
+    BoardTileController bc(bv,bt);
     bt.debug_display();
 
 
- /* bt.debug_display();
-  cout <<"-----------" << endl;
-  bt.debug_display();
-  bt.addTile();
-  cout <<"---------"<< endl;
-  bt.debug_display();
-  bt.move(LEFT);
-  cout << "========="<< endl;
-  bt.debug_display();*/
-    // create the window
+
+
+
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "My window");
 
 
@@ -34,6 +29,7 @@ int main() {
 
             if (event.type == sf::Event::Closed)
                 window.close();
+            bc.handleEvent(event);
         }
 
 

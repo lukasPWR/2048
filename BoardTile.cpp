@@ -121,31 +121,31 @@ void BoardTile::play_again()
     setBoard(cols,rows);
     addTile();
 }
-bool BoardTile::checkAdd(int x, int y, uint v)
+bool BoardTile::checkAdd(int x, int y )
 {
     if( x < 0 || x >4 || y < 0 || y> 4)
         return false;
-    return board.at(y).at(x).value == v;
+    return board.at(y).at(x).value ;
 
 
 }
 bool BoardTile::canMove()
 {
-    for( int y = 0; y < 4; y++ )
-        for( int x = 0; x < 4; x++ )
+    for( int y = 0; y < cols; y++ )
+        for( int x = 0; x < rows; x++ )
             if( !board.at(x).at(y).value ) return true;
 
     for( int i = 0; i < cols;i++)
     {
         for(int j = 0; j < rows; j++)
         {
-            if(checkAdd(i+1,j,board.at(i).at(j).value))
+            if(checkAdd(i+1,j))
                 return true;
-            if(checkAdd(i-1,j,board.at(i).at(j).value))
+            if(checkAdd(i-1,j))
                 return true;
-            if(checkAdd(i,j+1,board.at(i).at(j).value))
+            if(checkAdd(i,j+1))
                 return true;
-            if(checkAdd(i,j-1,board.at(i).at(j).value))
+            if(checkAdd(i,j-1))
                 return true;
 
         }
@@ -164,9 +164,7 @@ void BoardTile::addTile()
                 b = rand() %4;
             }
             while(board.at(a).at(b).value);
-                int s = rand() % 100;
-                if( s > 89 ) board[a][b].value = 4;
-                else board.at(a).at(b).value = 2;
+            board.at(a).at(b).value = 2;
                 if( canMove() ) return;
             }
             isDone = true;
@@ -176,44 +174,60 @@ void BoardTile::addTile()
 
 void BoardTile::moveVertical(int x, int y, int d)
 {
-    if(board[x][y + d].value && board[x][y + d].value == board[x][y].value && !board[x][y].isBlocked && !board[x][y + d].isBlocked  )
+    if(board.at(x).at(y+d).value &&board.at(x).at(y+d).value == board.at(x).at(y).value  && !board.at(x).at(y).isBlocked && !board.at(x).at(y+d).isBlocked  )
     {
-        board[x][y].value = 0;
-        board[x][y + d].value *= 2;
-        score += board[x][y + d].value;
-        board[x][y + d].isBlocked = true;
+        board.at(x).at(y).value = 0;
+        board.at(x).at(y+d).value *= 2;
+        score += board.at(x).at(y+d).value;
+        board.at(x).at(y+d).isBlocked = true;
         isMoved = true;
 
     }
-    else if( !board[x][y + d].value && board[x][y].value )
+    else if( !board.at(x).at(y+d).value && board.at(x).at(y).value )
     {
-        board[x][y + d].value = board[x][y].value;
-        board[x][y].value = 0;
+        board.at(x).at(y+d).value = board.at(x).at(y).value;
+        board.at(x).at(y).value = 0;
         isMoved = true;
     }
-    if( d > 0 ) { if( y + d < 3 ) moveVertical( x, y + d,  1 ); }
-    else        { if( y + d > 0 ) moveVertical( x, y + d, -1 ); }
+    if( d > 0 )
+    {
+        if( y + d < 3 )
+            moveVertical( x, y + d,  1 );
+    }
+    else
+        {
+        if( y + d > 0 )
+            moveVertical( x, y + d, -1 );
+        }
 
 
 }
 void  BoardTile::moveHorizontal(int x, int y, int d)
 {
-    if( board[x + d][y].value && board[x + d][y].value == board[x][y].value && !board[x][y].isBlocked && !board[x + d][y].isBlocked )
+    if( board.at(x+d).at(y).value && board.at(x+d).at(y).value == board.at(x).at(y).value  && !board.at(x).at(y).isBlocked && !board.at(x+d).at(y).isBlocked )
     {
-        board[x][y].value = 0;
-        board[x + d][y].value *= 2;
-        score += board[x + d][y].value;
-        board[x + d][y].isBlocked = true;
+        board.at(x).at(y).value = 0;
+        board.at(x+d).at(y).value *= 2;
+        score += board.at(x+d).at(y).value;
+        board.at(x+d).at(y).isBlocked = true;
         isMoved = true;
     }
-    else if( !board[x + d][y].value && board[x][y].value )
+    else if( !board.at(x+d).at(y).value && board.at(x).at(y).value )
     {
-        board[x + d][y].value = board[x][y].value;
-        board[x][y].value = 0;
+        board.at(x+d).at(y).value = board.at(x).at(y).value;
+        board.at(x).at(y).value = 0;
         isMoved = true;
     }
-    if( d > 0 ) { if( x + d < 3 ) moveHorizontal( x + d, y,  1 ); }
-    else        { if( x + d > 0 ) moveHorizontal( x + d, y, -1 ); }
+    if( d > 0 )
+    {
+        if( x + d < 3 )
+            moveHorizontal( x + d, y,  1 );
+    }
+    else
+        {
+        if( x + d > 0 )
+            moveHorizontal( x + d, y, -1 );
+        }
 
 }
 void BoardTile::move(Direction d)
@@ -225,7 +239,11 @@ void BoardTile::move(Direction d)
             {
                 int y = 1;
                 while( y < 4 )
-                { if( board[x][y].value ) moveVertical( x, y, -1 ); y++;}
+                {
+                    if( board.at(x).at(y).value)
+                        moveVertical( x, y, -1 );
+                    y++;
+                }
             }
             break;
         case DOWN:
@@ -233,7 +251,7 @@ void BoardTile::move(Direction d)
             {
                 int y = 2;
                 while( y >= 0 )
-                { if( board[x][y].value ) moveVertical( x, y, 1 ); y--;}
+                { if( board.at(x).at(y).value ) moveVertical( x, y, 1 ); y--;}
             }
             break;
         case LEFT:
@@ -241,7 +259,7 @@ void BoardTile::move(Direction d)
             {
                 int x = 1;
                 while( x < 4 )
-                { if( board[x][y].value ) moveHorizontal( x, y, -1 ); x++;}
+                { if( board.at(x).at(y).value ) moveHorizontal( x, y, -1 ); x++;}
             }
             break;
         case RIGHT:
@@ -249,7 +267,7 @@ void BoardTile::move(Direction d)
             {
                 int x = 2;
                 while( x >= 0 )
-                { if( board[x][y].value ) moveHorizontal( x, y, 1 ); x--;}
+                { if( board.at(x).at(y).value ) moveHorizontal( x, y, 1 ); x--;}
             }
     }
 }

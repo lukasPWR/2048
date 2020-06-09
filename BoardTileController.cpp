@@ -12,38 +12,44 @@ BoardTileController::BoardTileController(BoardView &v, BoardTile &b): view(v), b
 
 void BoardTileController::handleEvent(sf::Event &event)
 {
-    if( event.type == sf::Event::KeyPressed )
+    if( event.type == sf::Event::KeyPressed  )
     {
         if(event.key.code==sf::Keyboard::Down)
         {
             board.move(DOWN);
-            board.addTile();
+            board.canMove();
+
+
 
         }
         if(event.key.code==sf::Keyboard::Up)
         {
             board.move(UP);
-            board.addTile();
+            board.canMove();
+
 
 
         }
         if(event.key.code==sf::Keyboard::Left)
         {
             board.move(LEFT);
-            board.addTile();
+            board.canMove();
+
 
 
         }
         if(event.key.code==sf::Keyboard::Right)
         {
             board.move(RIGHT);
-            board.addTile();
+            board.canMove();
+
 
         }
+        board.addTile();
     }
 
 
-    if (board.getIsDone()==true && board.getIsMoved()==false)
+    if (board.getIsDone() && !board.getIsMoved())
     {
 
 

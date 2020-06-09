@@ -56,7 +56,7 @@ public:
     char getFieldInfo(int x, int y) const;
     int getValue(int x, int y);
     void play_again();
-    bool checkAdd(int x, int y, uint v) ;
+    bool checkAdd(int x, int y) ;
     bool canMove() ;
     void addTile();
     void moveHorizontal(int x, int y, int d);

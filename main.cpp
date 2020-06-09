@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    srand( static_cast<uint>( time( NULL ) ) );
+    srand( static_cast<int>( time( NULL ) ) );
 
     BoardTile bt(4,4);
     BoardView bv(bt);

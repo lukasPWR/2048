@@ -28,7 +28,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_0.setPosition(x * i + x, y * j + y);
                 win.draw(tile_0);
             }
-            if (board.getFieldInfo(j, i) == '2') {
+            if (board.getFieldInfo(j, i) == '1') {
                 if (!tile2_txt.loadFromFile("2.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -42,7 +42,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_2.setPosition(x * i + x, y * j + y);
                 win.draw(tile_2);
             }
-            if (board.getFieldInfo(j, i) == '4') {
+            if (board.getFieldInfo(j, i) == '2') {
                 if (!tile4_txt.loadFromFile("4.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -55,7 +55,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_4.setPosition(x * i + x, y * j + y);
                 win.draw(tile_4);
             }
-            if(board.getFieldInfo(j,i)=='8')
+            if(board.getFieldInfo(j,i)=='3')
             {
                 if (!tile8_txt.loadFromFile("8.jpg"))
                 {
@@ -70,7 +70,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_8.setPosition(x * i + x, y * j + y);
                 win.draw(tile_8);
             }
-            if (board.getFieldInfo(j, i) == '16') {
+            if (board.getFieldInfo(j, i) == '4') {
                 if (!tile16_txt.loadFromFile("16.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -84,8 +84,8 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_16.setPosition(x * i + x, y * j + y);
                 win.draw(tile_16);
             }
-            if (board.getFieldInfo(j, i) == '32') {
-                if (!tile32_txt.loadFromFile("2.jpg")) {
+            if (board.getFieldInfo(j, i) == '5') {
+                if (!tile32_txt.loadFromFile("32.jpg")) {
                     cout << "error" << endl;
                     system("pause");
 
@@ -98,7 +98,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_32.setPosition(x * i + x, y * j + y);
                 win.draw(tile_32);
             }
-            if (board.getFieldInfo(j, i) == '64') {
+            if (board.getFieldInfo(j, i) == '6') {
                 if (!tile64_txt.loadFromFile("64.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -112,8 +112,8 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_64.setPosition(x * i + x, y * j + y);
                 win.draw(tile_64);
             }
-            if (board.getFieldInfo(j, i) == '128') {
-                if (!tile128_txt.loadFromFile("2.jpg")) {
+            if (board.getFieldInfo(j, i) == '7') {
+                if (!tile128_txt.loadFromFile("128.jpg")) {
                     cout << "error" << endl;
                     system("pause");
 
@@ -126,7 +126,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_128.setPosition(x * i + x, y * j + y);
                 win.draw(tile_128);
             }
-            if (board.getFieldInfo(j, i) == '256') {
+            if (board.getFieldInfo(j, i) == '8') {
                 if (!tile256_txt.loadFromFile("256.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -140,7 +140,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_256.setPosition(x * i + x, y * j + y);
                 win.draw(tile_256);
             }
-            if (board.getFieldInfo(j, i) == '512') {
+            if (board.getFieldInfo(j, i) == '9') {
                 if (!tile512_txt.loadFromFile("512.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -154,7 +154,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_512.setPosition(x * i + x, y * j + y);
                 win.draw(tile_512);
             }
-            if (board.getFieldInfo(j, i) == '1024') {
+            if (board.getFieldInfo(j, i) == 'x') {
                 if (!tile1024_txt.loadFromFile("1024.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -168,7 +168,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 tile_1024.setPosition(x * i + x, y * j + y);
                 win.draw(tile_1024);
             }
-            if (board.getFieldInfo(j, i) == '2048') {
+            if (board.getFieldInfo(j, i) == 'z') {
                 if (!tile2_txt.loadFromFile("2048.jpg")) {
                     cout << "error" << endl;
                     system("pause");
@@ -199,6 +199,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
     score.setPosition(x * 2.2, 0);
     score.setString("Wynik:" + std::to_string(board.getScore()));
     win.draw(score);
+
 
 
 }

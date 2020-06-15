@@ -16,6 +16,7 @@
 using namespace std;
 typedef unsigned int uint;
 enum Direction {UP, DOWN, LEFT, RIGHT};
+enum GameState {RUNNING, FINISHED_LOSS, FINISHED_WIN};
 
 
 
@@ -28,17 +29,19 @@ struct Tile
 
 class BoardTile {
     vector<vector<Tile>> board;
-    bool isWin;
+
     bool isDone;
     bool isMoved;
 
     uint score;
     int cols;
     int rows;
+    bool finished=false;
 
 
 
     Direction direction;
+    GameState state;
 
 
 
@@ -49,16 +52,17 @@ public:
     void debug_display() const;
     bool getIsMoved() {return isMoved;}
     bool getIsDone() {return isDone;}
-    bool getIsWin() {return isWin;}
     int getScore() {return score;};
     int getBoardHeight() const { return rows; }
     int getBoardWidth() const { return cols; }
-    char getFieldInfo(int x, int y) const;
+     char getFieldInfo(int x, int y) const;
     int getValue(int x, int y);
     void play_again();
     bool checkAdd(int x, int y) ;
     bool canMove() ;
     void addTile();
+    GameState getGameState() const { return state;}
+    GameState whatState();
     void moveHorizontal(int x, int y, int d);
     void moveVertical(int x, int y, int d);
     void move(Direction d);

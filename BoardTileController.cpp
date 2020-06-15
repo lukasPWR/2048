@@ -48,8 +48,7 @@ void BoardTileController::handleEvent(sf::Event &event)
         board.addTile();
     }
 
-
-    if (board.getIsDone() && !board.getIsMoved())
+    if (board.getGameState() == FINISHED_LOSS || board.getGameState() == FINISHED_WIN)
     {
 
 
@@ -61,6 +60,8 @@ void BoardTileController::handleEvent(sf::Event &event)
             }
         }
     }
+
+
 
 
 }

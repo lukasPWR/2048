@@ -30,7 +30,7 @@ endif(WIN32)
 # wcześniej katalogów - nie ma potrzeby robienia potem if-a dla target_link_libraries
 find_package(SFML 2 COMPONENTS graphics audio window system REQUIRED)
 
-add_executable(${ProjectName} main.cpp BoardTile.h BoardTile.cpp BoardView.cpp BoardView.h BoardTileController.cpp BoardTileController.h)
+add_executable(${ProjectName} main.cpp BoardTile.h BoardTile.cpp BoardView.cpp BoardView.h BoardTileController.cpp BoardTileController.h MenuVIew.cpp MenuVIew.h MenuController.cpp MenuController.h GameManager.cpp GameManager.h)
 
 target_link_libraries(${ProjectName} sfml-graphics sfml-audio sfml-window sfml-system)
 

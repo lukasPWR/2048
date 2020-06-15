@@ -4,13 +4,22 @@
 #include "BoardTileController.h"
 #include "time.h"
 #include <SFML/Graphics.hpp>
+#include "MenuVIew.h"
+#include "MenuController.h"
+#include "GameManager.h"
 
 int main() {
     srand( static_cast<int>( time( NULL ) ) );
 
     BoardTile bt(4,4);
+
     BoardView bv(bt);
     BoardTileController bc(bv,bt);
+    MenuVIew mv;
+    MenuController mc(mv,bt);
+    GameManager gm(bt,bc,mc);
+
+
     bt.debug_display();
 
 
@@ -29,12 +38,13 @@ int main() {
 
             if (event.type == sf::Event::Closed)
                 window.close();
-            bc.handleEvent(event);
+            gm.handleEvent(event);
+
         }
 
 
         window.clear(sf::Color::Black);
-        bv.drawOnWindow(window);
+        gm.drawOn(window);
 
 
         window.display();

@@ -12,8 +12,8 @@
 class BoardTileController {
     BoardView & view;
     BoardTile & board;
-    bool finished;
-    bool again;
+    bool finished=false;
+    bool again=false;
 public:
     BoardTileController(BoardView &v, BoardTile &b);
     void handleEvent(sf::Event &event);

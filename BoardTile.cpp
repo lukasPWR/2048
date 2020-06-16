@@ -35,7 +35,7 @@ void BoardTile::setBoard(int cols, int rows)
 
     for(int i = 0; i < cols; ++i) {
         for (int j = 0; j < rows; ++j) {
-            board.at(i).at(j).value = 2048;
+            board.at(i).at(j).value = 0;
             board.at(i).at(j).isBlocked = false;
 
         }

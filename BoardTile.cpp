@@ -7,12 +7,13 @@
 BoardTile::BoardTile(int cols, int rows): cols(cols), rows(rows)
 {
 
+    cols =4;
+    rows = 4;
+    finished= false;
     isDone = false;
     isMoved = true;
-
+    state = RUNNING;
     score = 0;
-
-
 
     setBoard(cols,rows);
 
@@ -22,9 +23,9 @@ BoardTile::BoardTile(int cols, int rows): cols(cols), rows(rows)
 void BoardTile::setBoard(int cols, int rows)
 {
 
-    cols =4;
-    rows = 4;
-    state = RUNNING;
+
+
+
 
     board.resize(4);
     for(int i=0; i<board.size();i++)
@@ -34,12 +35,14 @@ void BoardTile::setBoard(int cols, int rows)
 
     for(int i = 0; i < cols; ++i) {
         for (int j = 0; j < rows; ++j) {
-            board.at(i).at(j).value = 0;
+            board.at(i).at(j).value = 2048;
             board.at(i).at(j).isBlocked = false;
 
         }
     }
+
     addTile();
+    isWin();
 
 }
 
@@ -109,6 +112,7 @@ char BoardTile::getFieldInfo(int x, int y) const
     }
 
 
+
 }
 
 
@@ -119,9 +123,19 @@ int BoardTile::getValue(int x, int y)
 
 void BoardTile::play_again()
 {
-    board.clear();
-    setBoard(cols,rows);
-    addTile();
+    for(int i = 0; i < cols; ++i) {
+        for (int j = 0; j < rows; ++j) {
+            board.at(i).at(j).value = 0;
+            board.at(i).at(j).isBlocked = false;
+
+        }
+    }
+    score = 0;
+    finished= false;
+    isDone = false;
+    isMoved = true;
+    state = RUNNING;
+    isWin();
 }
 bool BoardTile::checkAdd(int x, int y )
 {
@@ -131,6 +145,7 @@ bool BoardTile::checkAdd(int x, int y )
 
 
 }
+
 bool BoardTile::canMove()
 {
     for( int y = 0; y < cols; y++ )
@@ -154,26 +169,25 @@ bool BoardTile::canMove()
     }
     return false;
 }
-GameState BoardTile::whatState()
+void BoardTile::isWin()
 {
-
-        for(int i = 0; i < board.size(); i++)
+    for(int i = 0; i < cols; i++)
+    {
+        for(int j = 0; j < rows; j++)
         {
-            if(board.at(i).at(i).isBlocked && board.at(i).at(i).value)
+            if(getFieldInfo(i,j) == 'z')
             {
-                return FINISHED_LOSS;
+                state = FINISHED_WIN;
             }
-            if(board.at(i).at(i).value==2048)
-            {
-                return FINISHED_WIN;
-            }
-        }
 
+        }
+    }
 }
+
 void BoardTile::addTile()
 {
-    uint a= 0;
-    uint b= 0;
+    int a= 0;
+    int b= 0;
             if(!board.at(a).at(b).value)
             {
 
@@ -205,7 +219,10 @@ void BoardTile::moveVertical(int x, int y, int d)
         board.at(x).at(y+d).value = board.at(x).at(y).value;
         board.at(x).at(y).value = 0;
         isMoved = true;
+
     }
+
+
     if( d > 0 )
     {
         if( y + d < 3 )
@@ -216,6 +233,8 @@ void BoardTile::moveVertical(int x, int y, int d)
         if( y + d > 0 )
             moveVertical( x, y + d, -1 );
         }
+
+
 
 
 }
@@ -234,6 +253,8 @@ void  BoardTile::moveHorizontal(int x, int y, int d)
         board.at(x).at(y).value = 0;
         isMoved = true;
     }
+    else
+
     if( d > 0 )
     {
         if( x + d < 3 )

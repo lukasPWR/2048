@@ -5,7 +5,7 @@
 #include "GameManager.h"
 GameManager::GameManager(BoardTile &b, BoardTileController &bc, MenuController &mc): board(b), boardC(bc), menuC(mc)
 {
-    state = GAME;
+    state = MENU;
 }
 void GameManager::update()
 {
@@ -24,6 +24,7 @@ void GameManager::update()
                 state = MENU;
                 boardC.setFinishedToFalse();
                 boardC.playAgain();
+
             }
             break;
     }
@@ -41,12 +42,12 @@ void GameManager::handleEvent(sf::Event &event)
     }
     update();
 }
-void GameManager::drawOn(sf::RenderWindow &win)
+void GameManager::drawOnWindow(sf::RenderWindow &win)
 {
     switch (state)
     {
         case MENU:
-            menuC.draw(win);
+            menuC.drawOnWindow(win);
             break;
         case GAME:
             boardC.draw(win);

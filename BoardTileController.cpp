@@ -17,6 +17,7 @@ void BoardTileController::handleEvent(sf::Event &event)
         if(event.key.code==sf::Keyboard::Down)
         {
             board.move(DOWN);
+            board.getIsDone();
             board.canMove();
 
 
@@ -25,6 +26,8 @@ void BoardTileController::handleEvent(sf::Event &event)
         if(event.key.code==sf::Keyboard::Up)
         {
             board.move(UP);
+            board.getIsDone();
+
             board.canMove();
 
 
@@ -34,6 +37,7 @@ void BoardTileController::handleEvent(sf::Event &event)
         {
             board.move(LEFT);
             board.canMove();
+            board.getIsDone();
 
 
 
@@ -41,6 +45,7 @@ void BoardTileController::handleEvent(sf::Event &event)
         if(event.key.code==sf::Keyboard::Right)
         {
             board.move(RIGHT);
+            board.getIsDone();
             board.canMove();
 
 
@@ -48,7 +53,7 @@ void BoardTileController::handleEvent(sf::Event &event)
         board.addTile();
     }
 
-    if (board.getGameState() == FINISHED_LOSS || board.getGameState() == FINISHED_WIN)
+    if (board.getGameState() == RUNNING || board.getGameState() == FINISHED_WIN)
     {
 
 

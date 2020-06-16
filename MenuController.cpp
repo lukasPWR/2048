@@ -3,7 +3,7 @@
 //
 
 #include "MenuController.h"
-MenuController::MenuController(MenuVIew &mv, BoardTile &b): view(mv), board(b)
+MenuController::MenuController(MenuVIew &mv, BoardTile &b):  board(b),view(mv)
 {
 
 }

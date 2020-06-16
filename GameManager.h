@@ -18,7 +18,7 @@ class GameManager {
     enum GameState {MENU,GAME} state;
 public:
     GameManager(BoardTile &b, BoardTileController &bc, MenuController &mc);
-    void drawOn(sf::RenderWindow &win);
+    void drawOnWindow(sf::RenderWindow &win);
     void handleEvent(sf::Event &event);
 
 };

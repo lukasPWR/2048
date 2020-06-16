@@ -14,15 +14,15 @@
 #include<cstdio>
 #include<unistd.h>
 using namespace std;
-typedef unsigned int uint;
+
 enum Direction {UP, DOWN, LEFT, RIGHT};
-enum GameState {RUNNING, FINISHED_LOSS, FINISHED_WIN};
+enum GameState {RUNNING, FINISHED_WIN};
 
 
 
 struct Tile
         {
-    uint value ;
+    int value ;
     bool isBlocked;
         };
 
@@ -33,10 +33,10 @@ class BoardTile {
     bool isDone;
     bool isMoved;
 
-    uint score;
+    int score;
     int cols;
     int rows;
-    bool finished=false;
+    bool finished;
 
 
 
@@ -62,7 +62,8 @@ public:
     bool canMove() ;
     void addTile();
     GameState getGameState() const { return state;}
-    GameState whatState();
+    void isWin();
+    void checkMove(int x, int y, int d);
     void moveHorizontal(int x, int y, int d);
     void moveVertical(int x, int y, int d);
     void move(Direction d);

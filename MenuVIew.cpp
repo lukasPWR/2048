@@ -3,7 +3,7 @@
 //
 
 #include "MenuVIew.h"
-MenuVIew::MenuVIew()
+MenuVIew::MenuVIew(BoardTile &b): board(b)
 {
 
 

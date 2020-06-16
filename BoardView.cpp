@@ -169,7 +169,7 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
                 win.draw(tile_1024);
             }
             if (board.getFieldInfo(j, i) == 'z') {
-                if (!tile2_txt.loadFromFile("2048.jpg")) {
+                if (!tile2048_txt.loadFromFile("2048.jpg")) {
                     cout << "error" << endl;
                     system("pause");
 
@@ -199,6 +199,28 @@ void BoardView::drawOnWindow(sf::RenderWindow &win) {
     score.setPosition(x * 2.2, 0);
     score.setString("Wynik:" + std::to_string(board.getScore()));
     win.draw(score);
+
+    space.setFont(font_sc);
+    space.setCharacterSize(y/8);
+    space.setFillColor(sf::Color::White);
+    space.setPosition(x * 2, y-y/4 );
+    space.setString("Nacisnij spacje aby wrocic do menu");
+
+    win_text.setFont(font_sc);
+    win_text.setCharacterSize(y/4);
+    win_text.setFillColor(sf::Color(255,128,0));
+    win_text.setPosition(x/2,y/2);
+    win_text.setString("WYGRANA");
+
+    if(board.getGameState() == FINISHED_WIN || board.getGameState() == RUNNING)
+    {
+        win.draw((space));
+    }
+    if(board.getGameState()== FINISHED_WIN)
+    {
+        win.draw(win_text);
+    }
+
 
 
 

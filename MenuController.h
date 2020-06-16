@@ -15,11 +15,11 @@ class MenuController {
     BoardTile &board;
     MenuVIew &view;
 
-    bool finished;
+    bool finished= false;
 public:
     explicit MenuController(MenuVIew &mv, BoardTile &b);
     void handleEvent(sf::Event &event);
-    void draw(sf::RenderWindow & win) { view.drawOnWindow(win); }
+    void drawOnWindow(sf::RenderWindow & win) { view.drawOnWindow(win); }
     void setFinishedToFalse() { finished = false; }
     bool isFinished() const {return finished;}
 

@@ -15,7 +15,7 @@ int main() {
 
     BoardView bv(bt);
     BoardTileController bc(bv,bt);
-    MenuVIew mv;
+    MenuVIew mv(bt);
     MenuController mc(mv,bt);
     GameManager gm(bt,bc,mc);
 
@@ -44,7 +44,7 @@ int main() {
 
 
         window.clear(sf::Color::Black);
-        gm.drawOn(window);
+        gm.drawOnWindow(window);
 
 
         window.display();
